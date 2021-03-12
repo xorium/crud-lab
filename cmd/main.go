@@ -3,7 +3,7 @@ package main
 import (
 	"crud-lab/internal/application"
 	"crud-lab/internal/infrastructure/postgres"
-	"crud-lab/internal/web"
+	"crud-lab/internal/infrastructure/web"
 	"crud-lab/pkg/config"
 )
 
