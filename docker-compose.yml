@@ -1,0 +1,43 @@
+version: '3'
+
+networks:
+  app-tier:
+    driver: bridge
+
+services:
+  db:
+    image: "postgres:12"
+    restart: always
+    env_file: .env
+    environment:
+      POSTGRES_USER: $DB_USER
+      POSTGRES_PASSWORD: $DB_PASS
+      POSTGRES_DB: $DB_NAME
+    depends_on:
+      - redis
+    volumes:
+      - $PWD/test/data/postgres/out/data:/var/lib/postgresql/data
+      - $PWD/test/data/postgres/out/logs:/logs
+    ports:
+      - "5434:5432"
+
+  redis:
+    image: "redis:alpine"
+    command: redis-server
+    ports:
+      - "26379:6379"
+    volumes:
+      - $PWD/test/data/redis-data:/var/lib/redis
+      - $PWD/test/data/redis.conf:/usr/local/etc/redis/redis.conf
+    environment:
+      - REDIS_REPLICATION_MODE=master
+
+
+  pgadmin4:
+    image: dpage/pgadmin4
+    ports:
+      - 8080:80
+    env_file: .env
+    environment:
+      PGADMIN_DEFAULT_EMAIL: $PGADMIN_LOGIN
+      PGADMIN_DEFAULT_PASSWORD: $PGADMIN_PASS

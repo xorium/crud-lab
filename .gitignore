@@ -1,0 +1,4 @@
+.env
+redis-data
+redis.conf
+test/data/postgres
