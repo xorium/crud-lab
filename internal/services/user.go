@@ -1,4 +1,4 @@
-package application
+package services
 
 type UsersService struct {
 	*ServicesDeps

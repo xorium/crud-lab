@@ -1,7 +1,7 @@
 package web
 
 import (
-	"crud-lab/internal/application"
+	"crud-lab/internal/services"
 	"crud-lab/pkg/config"
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
@@ -10,7 +10,7 @@ import (
 
 type AppContext struct {
 	echo.Context
-	svc *application.Services
+	svc *services.Services
 }
 
 func cast(c echo.Context) *AppContext {
@@ -18,11 +18,11 @@ func cast(c echo.Context) *AppContext {
 }
 
 type App struct {
-	svc *application.Services
+	svc *services.Services
 	cfg config.Config
 }
 
-func NewApp(cfg config.Config, svc *application.Services) *App {
+func NewApp(cfg config.Config, svc *services.Services) *App {
 	return &App{
 		cfg: cfg,
 		svc: svc,

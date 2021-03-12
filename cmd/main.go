@@ -1,9 +1,9 @@
 package main
 
 import (
-	"crud-lab/internal/application"
 	"crud-lab/internal/infrastructure/postgres"
 	"crud-lab/internal/infrastructure/web"
+	"crud-lab/internal/services"
 	"crud-lab/pkg/config"
 )
 
@@ -15,7 +15,7 @@ func main() {
 		panic(err)
 	}
 
-	svc := application.NewServices(repo)
+	svc := services.NewServices(repo)
 	webApp := web.NewApp(cfg, svc)
 
 	if err := webApp.Start(); err != nil {
